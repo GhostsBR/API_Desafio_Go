@@ -2,7 +2,7 @@ package database
 
 import (
 	"context"
-	"fmt"
+
 	"log"
 	"time"
 
@@ -13,18 +13,6 @@ import (
 
 type Database struct {
 	Url string
-}
-
-func (i Database) InitDatabase() {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(
-		"mongodb+srv://system:WV4fNKP2axPC5eUv@cluster0.agvxp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-	))
-	if err != nil { log.Fatal(err) }
-	collection := client.Database("server").Collection("test")
-	collection.InsertOne(ctx, bson.D{{"name", "pi"}})
-	fmt.Printf("Banco de dados iniciado com sucesso!")
 }
 
 func (i Database) GetTemplates () []bson.D  {
